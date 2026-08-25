@@ -6,16 +6,16 @@
     <UnoSingleProject>true</UnoSingleProject>
 
     <!-- Display name -->
-    <ApplicationTitle>Snake3D</ApplicationTitle>
+    <ApplicationTitle>Snake 3D: Slither Arena</ApplicationTitle>
     <!-- App Identifier -->
-    <ApplicationId>com.companyname.snake3d</ApplicationId>
+    <ApplicationId>com.snake3d.slitherarena</ApplicationId>
     <!-- Versions -->
-    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
     <ApplicationVersion>1</ApplicationVersion>
     <!-- Package Publisher -->
     <ApplicationPublisher>Snake3D</ApplicationPublisher>
     <!-- Package Description -->
-    <Description>Snake3D powered by Uno Platform.</Description>
+    <Description>Snake 3D: Slither Arena - The modern 3D classic snake game.</Description>
     <!--
       If you encounter this error message:
 

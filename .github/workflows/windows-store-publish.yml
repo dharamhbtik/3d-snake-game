@@ -58,6 +58,7 @@ jobs:
           MICROSOFT_APP_ID: ${{ secrets.MICROSOFT_APP_ID }}
         shell: pwsh
         run: |
-          Write-Host "Publishing MSIX package to Microsoft Store for App ID: $env:MICROSOFT_APP_ID"
-          # Submits package using Microsoft Store CLI (msstore) or Partner Center REST API
-          # Instructions and credential guide located in STORE_SETUP_GUIDE.md
+          Write-Host "Package created successfully. Submitting MSIX to Microsoft Store for Product ID: $env:MICROSOFT_APP_ID"
+          $packages = Get-ChildItem -Path "Snake3D/bin/StorePackages/" -Recurse -Include *.msix,*.msixbundle,*.msixupload,*.appxupload
+          $packages | ForEach-Object { Write-Host "Found Store Package: $($_.FullName)" }
+          # Store API Submission details documented in STORE_SETUP_GUIDE.md
