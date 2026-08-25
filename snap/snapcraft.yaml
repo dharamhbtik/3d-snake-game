@@ -1,7 +1,7 @@
 name: snake-3d
 base: core24
 version: '1.0.0'
-summary: 3D Classic Snake Game
+summary: 3D Classic Snake Game & Slither Arena
 description: |
   A production-quality 3D desktop version of the classic Snake game
   built with Uno Platform, SkiaSharp, and .NET 10.
@@ -25,10 +25,7 @@ apps:
 
 parts:
   snake-3d:
-    plugin: dotnet
-    source: .
-    dotnet-build-configuration: Release
-    build-environment:
-      - DOTNET_CLI_TELEMETRY_OPTOUT: '1'
-    prime:
-      - -usr/share/doc
+    plugin: dump
+    source: publish
+    organize:
+      '*': bin/
