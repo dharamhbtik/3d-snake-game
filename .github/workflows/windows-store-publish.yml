@@ -1,0 +1,63 @@
+name: Build & Publish Windows App to Microsoft Store
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build-and-publish-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore Dependencies
+        run: dotnet restore Snake3D.sln
+
+      - name: Run Tests
+        run: dotnet test Snake3D.Tests/Snake3D.Tests.csproj --configuration Release --no-restore
+
+      - name: Decode Signing Certificate
+        if: env.BASE64_CERT != ''
+        env:
+          BASE64_CERT: ${{ secrets.WINDOWS_CERT_BASE64 }}
+          CERT_PASSWORD: ${{ secrets.WINDOWS_CERT_PASSWORD }}
+        run: |
+          $certBytes = [Convert]::FromBase64String("${{ secrets.WINDOWS_CERT_BASE64 }}")
+          [IO.File]::WriteAllBytes("Snake3D/signing_cert.pfx", $certBytes)
+
+      - name: Build and Package MSIX
+        run: |
+          dotnet publish Snake3D/Snake3D.csproj `
+            -f net10.0-windows10.0.26100 `
+            -c Release `
+            -p:GenerateAppxPackageOnBuild=true `
+            -p:AppxPackageDir="./bin/StorePackages/" `
+            -p:AppxBundle=Always `
+            -p:UapAppxPackageBuildMode=StoreUpload
+
+      - name: Upload Windows Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-store-package
+          path: Snake3D/bin/StorePackages/**/*
+
+      - name: Publish to Microsoft Partner Center
+        if: env.MICROSOFT_CLIENT_ID != ''
+        env:
+          MICROSOFT_TENANT_ID: ${{ secrets.MICROSOFT_TENANT_ID }}
+          MICROSOFT_CLIENT_ID: ${{ secrets.MICROSOFT_CLIENT_ID }}
+          MICROSOFT_CLIENT_SECRET: ${{ secrets.MICROSOFT_CLIENT_SECRET }}
+          MICROSOFT_APP_ID: ${{ secrets.MICROSOFT_APP_ID }}
+        shell: pwsh
+        run: |
+          Write-Host "Publishing MSIX package to Microsoft Store for App ID: $env:MICROSOFT_APP_ID"
+          # Submits package using Microsoft Store CLI (msstore) or Partner Center REST API
+          # Instructions and credential guide located in STORE_SETUP_GUIDE.md

@@ -1,0 +1,34 @@
+name: snake-3d
+base: core24
+version: '1.0.0'
+summary: 3D Classic Snake Game
+description: |
+  A production-quality 3D desktop version of the classic Snake game
+  built with Uno Platform, SkiaSharp, and .NET 10.
+  Features realistic serpentine movement, dynamic Blinn-Phong lighting,
+  dense 3D grass meadows, and customizable speeds.
+
+grade: stable
+confinement: strict
+
+apps:
+  snake-3d:
+    command: bin/Snake3D
+    extensions: [gnome]
+    plugs:
+      - x11
+      - wayland
+      - opengl
+      - audio-playback
+      - desktop
+      - desktop-legacy
+
+parts:
+  snake-3d:
+    plugin: dotnet
+    source: .
+    dotnet-build-configuration: Release
+    build-environment:
+      - DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+    prime:
+      - -usr/share/doc

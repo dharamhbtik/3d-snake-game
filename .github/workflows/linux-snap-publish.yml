@@ -1,0 +1,52 @@
+name: Build & Publish Linux Snap to Snap Store
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build-and-publish-snap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Run Tests
+        run: dotnet test Snake3D.Tests/Snake3D.Tests.csproj --configuration Release
+
+      - name: Publish Linux Executable
+        run: |
+          dotnet publish Snake3D/Snake3D.csproj \
+            -f net10.0-desktop \
+            -c Release \
+            -r linux-x64 \
+            --self-contained true \
+            -o ./snap/bin
+
+      - name: Build and Publish Snap
+        uses: snapcore/action-build@v1
+        id: snapcraft
+        with:
+          path: snap
+
+      - name: Upload Snap Package Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-snap-package
+          path: ${{ steps.snapcraft.outputs.snap }}
+
+      - name: Publish to Snap Store
+        if: env.SNAPCRAFT_STORE_CREDENTIALS != ''
+        uses: snapcore/action-publish@v1
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
+        with:
+          snap: ${{ steps.snapcraft.outputs.snap }}
+          release: stable
