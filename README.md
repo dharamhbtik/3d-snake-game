@@ -85,7 +85,7 @@
 ### macOS Desktop (Skia Desktop)
 ```bash
 # Build the solution
-dotnet build Snake3D.sln
+dotnet build Snake3D.slnx
 
 # Launch the game
 dotnet run --project Snake3D/Snake3D.csproj -f net10.0-desktop

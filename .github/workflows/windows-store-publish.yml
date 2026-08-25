@@ -19,7 +19,7 @@ jobs:
           dotnet-version: '10.0.x'
 
       - name: Restore Dependencies
-        run: dotnet restore Snake3D.sln
+        run: dotnet restore Snake3D.slnx
 
       - name: Run Tests
         run: dotnet test Snake3D.Tests/Snake3D.Tests.csproj --configuration Release --no-restore
