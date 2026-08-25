@@ -40,6 +40,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SkiaSharp.Views.Uno.WinUI" />
+    <PackageReference Include="SkiaSharp.Views.WinUI" Condition="$(TargetFramework.Contains('-windows'))" />
     <ProjectReference Include="..\Snake3D.Core\Snake3D.Core.csproj" />
   </ItemGroup>
 
