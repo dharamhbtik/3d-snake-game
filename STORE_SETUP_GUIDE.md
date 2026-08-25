@@ -58,8 +58,9 @@ In Partner Center, click **Start your submission** and complete the 5 simple sec
    - Copy and paste the pre-written marketing text, keywords, and features directly from:
      📄 [GAME_STORE_METADATA_AND_COPY.md](GAME_STORE_METADATA_AND_COPY.md)
    - Upload the visual assets from the `assets/store/` folder:
-     - Icon: `assets/store/snap_icon_256.png` (66KB - ideal for Snap Store <256KB limit) or `assets/store/snap_icon.png`
-     - Hero Banner: `assets/store/store_hero_banner.jpg`
+     - Icon: `assets/store/snap_icon_256.png` (66KB) or `assets/store/snap_icon.png`
+     - Snap Store Banner: `assets/store/snap_banner_720x240.png` (Exact 3:1 aspect ratio, 86KB)
+     - Windows Store Hero Banner: `assets/store/store_hero_banner.jpg` (16:9 widescreen)
      - Screenshots: `assets/store/real_screenshot_1_gameplay.png`, `real_screenshot_2_action.png`, `real_screenshot_3_menu.png`
 6. Click **Submit to the Store**! Microsoft will certify and publish your game to the Windows Store worldwide.
 
