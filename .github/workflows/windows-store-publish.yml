@@ -49,16 +49,12 @@ jobs:
           name: windows-store-package
           path: Snake3D/bin/StorePackages/**/*
 
-      - name: Publish to Microsoft Partner Center
-        if: env.MICROSOFT_CLIENT_ID != ''
-        env:
-          MICROSOFT_TENANT_ID: ${{ secrets.MICROSOFT_TENANT_ID }}
-          MICROSOFT_CLIENT_ID: ${{ secrets.MICROSOFT_CLIENT_ID }}
-          MICROSOFT_CLIENT_SECRET: ${{ secrets.MICROSOFT_CLIENT_SECRET }}
-          MICROSOFT_APP_ID: ${{ secrets.MICROSOFT_APP_ID }}
-        shell: pwsh
-        run: |
-          Write-Host "Package created successfully. Submitting MSIX to Microsoft Store for Product ID: $env:MICROSOFT_APP_ID"
-          $packages = Get-ChildItem -Path "Snake3D/bin/StorePackages/" -Recurse -Include *.msix,*.msixbundle,*.msixupload,*.appxupload
-          $packages | ForEach-Object { Write-Host "Found Store Package: $($_.FullName)" }
-          # Store API Submission details documented in STORE_SETUP_GUIDE.md
+      - name: Create GitHub Release with Store Package
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: Snake3D/bin/StorePackages/**/*
+          name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true

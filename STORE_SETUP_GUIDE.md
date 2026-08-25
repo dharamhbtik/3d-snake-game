@@ -1,122 +1,103 @@
-# 🏪 Master Store Publishing & Partner Center Setup Guide
+# 🏪 Master Store Publishing Guide (Zero-Cost Microsoft Partner Center & Snap Store)
 
-This guide explains how to set up and publish **Snake 3D: Slither Arena** to the **Microsoft Store (Windows)** and **Canonical Snap Store (Linux)** using automated GitHub Actions CI/CD workflows.
-
----
-
-## 🪟 1. Microsoft Store (Microsoft Partner Center) Setup
-
-> [!IMPORTANT]
-> **New Partner Center Game Publishing Options Explained:**
-> When creating a new game in Microsoft Partner Center, you will be prompted with two options:
-> 1. **GDK Game**: Dedicated for Xbox console & Windows PC games using the Xbox Game Development Kit (C++/DirectX/Xbox Live).
-> 2. **MSIX or PWA game**: For Windows PC games packaged with .NET, WinUI, Uno Platform, or PWA technologies packaged as `.msix` / `.msixbundle`.
->
-> 👉 **ALWAYS CHOOSE: `MSIX or PWA game`** for Snake 3D!
+This guide provides the **exact, zero-cost method** to publish **Snake 3D: Slither Arena** using your paid Microsoft Developer Account and Canonical Snapcraft account **without requiring paid Entra ID or Azure subscriptions**.
 
 ---
 
-### Step 1.1: Reserve Product Name in Partner Center
-1. Log in to the [Microsoft Partner Center Dashboard](https://partner.microsoft.com/dashboard).
+## 🪟 1. Microsoft Store (Microsoft Partner Center) Publishing
+
+> [!NOTE]
+> **No Entra ID / Azure Subscription Needed!**
+> With your paid Microsoft Developer Account ($19 individual / $99 company), you **do NOT need Entra ID, Azure AD, or any paid enterprise subscriptions**.
+> The standard and official workflow is to let GitHub Actions automatically compile and generate the `.msixupload` / `.msixbundle` package, download it from GitHub, and drag-and-drop it into Microsoft Partner Center.
+
+---
+
+### Step 1.1: Reserve Your Product Title in Partner Center
+1. Log in to [Microsoft Partner Center](https://partner.microsoft.com/dashboard).
 2. Go to **Apps and games** -> Click **New product**.
-3. When prompted to select your product type, choose **MSIX or PWA game**.
-4. Enter your reserved title: `Snake 3D: Slither Arena` (or check availability for your preferred variant).
+3. When prompted to choose your game type:
+   👉 **Select: `MSIX or PWA game`** *(Do NOT select GDK Game, as that is for Xbox C++ titles)*.
+4. Enter your product name: `Snake 3D: Slither Arena` (or your reserved variant).
 5. Click **Reserve product name**.
 
 ---
 
-### Step 1.2: Sync Product Identity with Code
-1. In Partner Center, go to **Product management** -> **Product Identity**.
-2. Note the values for:
-   - **Package/Identity/Name** (e.g., `12345YourName.Snake3DSlitherArena`)
-   - **Package/Identity/Publisher** (e.g., `CN=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`)
-   - **Store ID** (e.g., `9NXXXXXXXXXX`)
-3. These identity strings ensure your packaged MSIX matches Microsoft's store identity when uploading.
+### Step 1.2: Sync Product Identity to Code
+1. In Partner Center, open your newly created game -> Click **Product management** -> **Product Identity**.
+2. Copy the following 3 fields:
+   - **Package/Identity/Name**
+   - **Package/Identity/Publisher**
+   - **Package/Properties/PublisherDisplayName**
+3. If needed, you can paste these into `Snake3D/Package.appxmanifest` or `Snake3D/Snake3D.csproj` so the package identity matches your account.
 
 ---
 
-### Step 1.3: Enable Partner Center API Access for GitHub Actions
-To allow GitHub Actions to automatically upload and submit your builds:
-1. In Partner Center, click the **Settings** gear icon (top right) -> **Account settings**.
-2. Navigate to **User management** -> **Azure AD applications**.
-3. Click **Create Azure AD application** (or link an existing one).
-4. Assign the role **Manager** to this Azure AD application.
-5. In the Azure AD App details, copy:
-   - **Tenant ID**
-   - **Client ID (Application ID)**
-   - **Client Secret (Key)** (generate a new secret key and save it immediately).
+### Step 1.3: Generate the Store Package via GitHub Actions
+You don't need to manually configure MSBuild or Visual Studio on your machine:
+1. Go to your GitHub repository -> **Actions** -> **Build & Publish Windows App to Microsoft Store** -> Click **Run workflow**.
+2. (Or push a release tag like `git tag v1.0.0 && git push origin v1.0.0`).
+3. Once the workflow finishes (takes ~2 minutes):
+   - Go to the workflow run -> Download the **`windows-store-package`** artifact (or download it directly from the **Releases** tab).
+   - Inside the zip, you will find the `.msixupload` / `.msixbundle` file.
 
 ---
 
-### Step 1.4: Add GitHub Repository Secrets
-In your GitHub repository, go to **Settings** -> **Secrets and variables** -> **Actions** -> **New repository secret**:
+### Step 1.4: Complete Submission in Partner Center Dashboard
+In Partner Center, click **Start your submission** and complete the 5 simple sections:
 
-| Secret Name | Description | Where to find |
-|---|---|---|
-| `MICROSOFT_TENANT_ID` | Azure AD Directory (Tenant) ID | Azure AD App details in Partner Center |
-| `MICROSOFT_CLIENT_ID` | Azure AD Application (Client) ID | Azure AD App details in Partner Center |
-| `MICROSOFT_CLIENT_SECRET` | Azure AD Client Secret Key | Generated under Azure AD App in Partner Center |
-| `MICROSOFT_APP_ID` | Store Product / Store ID | Partner Center -> *Product Identity* -> *Store ID* |
-| `WINDOWS_CERT_BASE64` | *(Optional)* Base64 code-signing `.pfx` | If self-signing offline builds |
-| `WINDOWS_CERT_PASSWORD` | *(Optional)* Certificate Password | Password for `.pfx` certificate |
-
----
-
-### Step 1.5: Fill in Store Listing Details
-Copy and paste the ready-to-use metadata, descriptions, and keywords directly from:
-📄 [GAME_STORE_METADATA_AND_COPY.md](GAME_STORE_METADATA_AND_COPY.md)
-
-Upload the visual assets generated in:
-📁 `assets/store/`:
-- `app_icon_512.jpg` / `app_icon.png` (Store Icon)
-- `store_hero_banner.jpg` (16:9 Hero Feature Banner)
-- `real_screenshot_1_gameplay.png` (Gameplay Screenshot)
-- `real_screenshot_2_action.png` (Golden Apple Action)
-- `real_screenshot_3_menu.png` (Menu & Customization)
+1. **Pricing and availability**:
+   - Base price: **Free** (Markets: All / Worldwide).
+2. **Properties**:
+   - Category: **Games > Action & Adventure** (Secondary: **Classics** or **Casual**).
+3. **Age ratings (IARC Questionnaire)**:
+   - Fill out the quick 2-minute questionnaire (select "No" to violence, gambling, mature themes) to get an immediate **PEGI 3 / ESRB Everyone** rating certificate.
+4. **Packages**:
+   - Drag and drop the `.msixupload` / `.msixbundle` file you downloaded from GitHub.
+5. **Store listings**:
+   - Copy and paste the pre-written marketing text, keywords, and features directly from:
+     📄 [GAME_STORE_METADATA_AND_COPY.md](GAME_STORE_METADATA_AND_COPY.md)
+   - Upload the visual assets from the `assets/store/` folder:
+     - Icon: `assets/store/app_icon_512.jpg`
+     - Hero Banner: `assets/store/store_hero_banner.jpg`
+     - Screenshots: `assets/store/real_screenshot_1_gameplay.png`, `real_screenshot_2_action.png`, `real_screenshot_3_menu.png`
+6. Click **Submit to the Store**! Microsoft will certify and publish your game to the Windows Store worldwide.
 
 ---
 
-## 🐧 2. Snap Store (Linux Snapcraft) Setup
+## 🐧 2. Canonical Snap Store (Linux Snapcraft) Setup
 
 ### Step 2.1: Register Package Name on Snapcraft
 1. Log in to the [Snapcraft.io Developer Dashboard](https://snapcraft.io).
-2. Click **Register a name** and reserve `snake-3d` (or your chosen package name).
-3. Verify that the name in `snap/snapcraft.yaml` matches your reserved name.
+2. Click **Register a name** and reserve `snake-3d`.
 
-### Step 2.2: Export Store Login Credentials
-In your local Linux terminal (or macOS/WSL with snapcraft installed):
+### Step 2.2: Export Store Login Credentials (One-Time)
+On your local Linux terminal (or macOS/WSL with snapcraft installed):
 ```bash
-# Install snapcraft if needed
-sudo snap install snapcraft --classic
-
-# Log in with your Canonical Snap developer account
+# Log in with your Canonical account
 snapcraft login
 
-# Export your encrypted login credential token
+# Export your credentials token
 snapcraft export-login --snaps snake-3d --channels stable store_creds.txt
 ```
-Copy the full string inside `store_creds.txt`.
+Copy the contents of `store_creds.txt`.
 
-### Step 2.3: Add GitHub Repository Secret
-In GitHub (**Settings** -> **Secrets and variables** -> **Actions** -> **New repository secret**):
+### Step 2.3: Add GitHub Secret
+In your GitHub repository (**Settings** -> **Secrets and variables** -> **Actions** -> **New repository secret**):
+- **Name**: `SNAPCRAFT_STORE_CREDENTIALS`
+- **Value**: Paste the exported token from `store_creds.txt`.
 
-| Secret Name | Value |
-|---|---|
-| `SNAPCRAFT_STORE_CREDENTIALS` | Paste the exported credentials string from `store_creds.txt` |
+Now whenever you push a tag (e.g. `v1.0.0`), GitHub Actions will automatically compile, package, and publish the Linux Snap directly to the Snap Store!
 
 ---
 
-## 🚀 3. Triggering Automated Store Releases
+## 🚀 Summary of Publishing Steps
 
-Once your GitHub Secrets are configured, you can publish updates with a single command:
-
-```bash
-# Tag a new release version
-git tag v1.0.0
-git push origin v1.0.0
-```
-
-Or trigger manually:
-1. Go to the **Actions** tab in your GitHub repository.
-2. Select **Build & Publish Windows App to Microsoft Store** or **Build & Publish Linux Snap to Snap Store**.
-3. Click **Run workflow** -> Select `main` branch.
+| Step | Windows (Microsoft Store) | Linux (Snap Store) |
+|---|---|---|
+| **Account** | Microsoft Developer Account (Paid) | Canonical Snapcraft Account (Free) |
+| **Product Type** | **MSIX or PWA game** | Snap Package (`snake-3d`) |
+| **Package Creation** | Automated via GitHub Actions (`.msixupload`) | Automated via GitHub Actions (`.snap`) |
+| **Publishing Method** | Download package from GitHub & drop into Partner Center | Fully automated via `SNAPCRAFT_STORE_CREDENTIALS` |
+| **Metadata & Text** | [GAME_STORE_METADATA_AND_COPY.md](GAME_STORE_METADATA_AND_COPY.md) | [GAME_STORE_METADATA_AND_COPY.md](GAME_STORE_METADATA_AND_COPY.md) |
+| **Screenshots & Icon** | `assets/store/` | `assets/store/` |
