@@ -591,4 +591,81 @@ public sealed class GameRenderer3D
         float z = (board.Height * 0.5f) - grid.Y - 0.5f;
         return new Vector3(x, 0f, z);
     }
+
+    public static void GenerateStoreScreenshots(string outputDir)
+    {
+        try
+        {
+            Directory.CreateDirectory(outputDir);
+
+            // Screenshot 1: Gameplay in 24x24 arena
+            {
+                using var bitmap = new SKBitmap(1920, 1080, SKColorType.Rgba8888, SKAlphaType.Premul);
+                using var canvas = new SKCanvas(bitmap);
+                var engine = new GameEngine(boardWidth: 24, boardHeight: 24);
+                var renderer = new GameRenderer3D();
+
+                engine.StartGame();
+                engine.Score = 180;
+                engine.HighScore = 350;
+
+                for (int i = 0; i < 8; i++)
+                {
+                    engine.Snake.Step(grow: true);
+                }
+
+                renderer.Render(canvas, 1920, 1080, engine, 0.033f);
+
+                using var image = SKImage.FromBitmap(bitmap);
+                using var data = image.Encode(SKEncodedImageFormat.Png, 100);
+                File.WriteAllBytes(Path.Combine(outputDir, "real_screenshot_1_gameplay.png"), data.ToArray());
+            }
+
+            // Screenshot 2: Action moment with Golden Apple
+            {
+                using var bitmap = new SKBitmap(1920, 1080, SKColorType.Rgba8888, SKAlphaType.Premul);
+                using var canvas = new SKCanvas(bitmap);
+                var engine = new GameEngine(boardWidth: 24, boardHeight: 24);
+                var renderer = new GameRenderer3D();
+
+                engine.StartGame();
+                engine.Score = 320;
+                engine.HighScore = 350;
+                for (int i = 0; i < 12; i++)
+                {
+                    engine.Snake.Step(grow: true);
+                }
+
+                if (engine.SpecialFood != null)
+                {
+                    renderer.OnFoodEaten(engine.SpecialFood, engine);
+                }
+
+                renderer.Render(canvas, 1920, 1080, engine, 0.033f);
+
+                using var image = SKImage.FromBitmap(bitmap);
+                using var data = image.Encode(SKEncodedImageFormat.Png, 100);
+                File.WriteAllBytes(Path.Combine(outputDir, "real_screenshot_2_action.png"), data.ToArray());
+            }
+
+            // Screenshot 3: Main Menu Orbiting Showcase
+            {
+                using var bitmap = new SKBitmap(1920, 1080, SKColorType.Rgba8888, SKAlphaType.Premul);
+                using var canvas = new SKCanvas(bitmap);
+                var engine = new GameEngine(boardWidth: 24, boardHeight: 24);
+                var renderer = new GameRenderer3D();
+
+                engine.HighScore = 350;
+                renderer.Render(canvas, 1920, 1080, engine, 0.033f);
+
+                using var image = SKImage.FromBitmap(bitmap);
+                using var data = image.Encode(SKEncodedImageFormat.Png, 100);
+                File.WriteAllBytes(Path.Combine(outputDir, "real_screenshot_3_menu.png"), data.ToArray());
+            }
+        }
+        catch
+        {
+            // Ignore capture exceptions
+        }
+    }
 }

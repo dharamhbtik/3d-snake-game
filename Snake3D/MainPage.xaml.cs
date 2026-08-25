@@ -36,6 +36,7 @@ public sealed partial class MainPage : Page
     {
         _renderTimer.Start();
         this.Focus(FocusState.Programmatic);
+        Rendering.GameRenderer3D.GenerateStoreScreenshots("assets/store");
     }
 
     private void OnPageUnloaded(object sender, RoutedEventArgs e)

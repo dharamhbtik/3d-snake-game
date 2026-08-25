@@ -15,7 +15,7 @@ public sealed class GameEngine
     public Food? SpecialFood { get; private set; }
     public GameState State { get; private set; } = GameState.Menu;
 
-    public int Score { get; private set; }
+    public int Score { get; set; }
     public int HighScore { get; set; }
     public int FoodEatenCount { get; private set; }
     public int Level => 1 + (FoodEatenCount / 5);
