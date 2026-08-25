@@ -8,12 +8,13 @@
     <!-- Display name -->
     <ApplicationTitle>Snake 3D: Slither Arena</ApplicationTitle>
     <!-- App Identifier -->
-    <ApplicationId>com.snake3d.slitherarena</ApplicationId>
+    <ApplicationId>3774DKTech.Snake3DSlitherArena</ApplicationId>
     <!-- Versions -->
     <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
     <ApplicationVersion>1</ApplicationVersion>
     <!-- Package Publisher -->
-    <ApplicationPublisher>Snake3D</ApplicationPublisher>
+    <ApplicationPublisher>DKTech India</ApplicationPublisher>
+    <PackagePublisherName>CN=29A7D010-A2C9-4F61-BD86-B10842B1EBC7</PackagePublisherName>
     <!-- Package Description -->
     <Description>Snake 3D: Slither Arena - The modern 3D classic snake game.</Description>
     <!--

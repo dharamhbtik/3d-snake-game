@@ -5,8 +5,16 @@
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   IgnorableNamespaces="uap rescap">
 
-  <Identity />
-  <Properties />
+  <Identity 
+    Name="3774DKTech.Snake3DSlitherArena" 
+    Publisher="CN=29A7D010-A2C9-4F61-BD86-B10842B1EBC7" 
+    Version="1.0.0.0" />
+
+  <Properties>
+    <DisplayName>Snake 3D: Slither Arena</DisplayName>
+    <PublisherDisplayName>DKTech India</PublisherDisplayName>
+    <Logo>Assets\Icons\iconStoreLogo.png</Logo>
+  </Properties>
 
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
@@ -21,7 +29,14 @@
     <Application Id="App"
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
-      <uap:VisualElements />
+      <uap:VisualElements 
+        DisplayName="Snake 3D: Slither Arena"
+        Description="Snake 3D: Slither Arena - The modern 3D classic snake game."
+        BackgroundColor="transparent"
+        Square150x150Logo="Assets\Icons\icon.png"
+        Square44x44Logo="Assets\Icons\icon.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Icons\icon.png" />
+      </uap:VisualElements>
     </Application>
   </Applications>
 

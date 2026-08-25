@@ -23,13 +23,13 @@ This guide provides the **exact, zero-cost method** to publish **Snake 3D: Slith
 
 ---
 
-### Step 1.2: Sync Product Identity to Code
-1. In Partner Center, open your newly created game -> Click **Product management** -> **Product Identity**.
-2. Copy the following 3 fields:
-   - **Package/Identity/Name**
-   - **Package/Identity/Publisher**
-   - **Package/Properties/PublisherDisplayName**
-3. If needed, you can paste these into `Snake3D/Package.appxmanifest` or `Snake3D/Snake3D.csproj` so the package identity matches your account.
+### Step 1.2: Sync Product Identity to Code (Already Configured)
+The project code and package manifest have already been updated with your Partner Center identity:
+- **Package/Identity/Name**: `3774DKTech.Snake3DSlitherArena`
+- **Package/Identity/Publisher**: `CN=29A7D010-A2C9-4F61-BD86-B10842B1EBC7`
+- **Package/Properties/PublisherDisplayName**: `DKTech India`
+
+*(Configured in `Snake3D/Package.appxmanifest` and `Snake3D/Snake3D.csproj`)*.
 
 ---
 
