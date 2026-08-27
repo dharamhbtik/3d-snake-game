@@ -1,4 +1,4 @@
-# 🐍 Snake 3D: Slither Arena
+# 🐍 Snake 3D : New Era
 
 <div align="center">
   <img src="assets/store/app_icon.png" alt="Snake 3D App Icon" width="160" style="border-radius: 28px;" />
@@ -9,7 +9,7 @@
 ---
 
 <div align="center">
-  <img src="assets/store/store_hero_banner.jpg" alt="Snake 3D: Slither Arena Hero Banner" width="100%" style="border-radius: 12px;" />
+  <img src="assets/store/store_hero_banner.jpg" alt="Snake 3D : New Era Hero Banner" width="100%" style="border-radius: 12px;" />
 </div>
 
 ---

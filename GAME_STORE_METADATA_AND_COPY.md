@@ -1,4 +1,4 @@
-# 🎮 Snake 3D: Slither Arena - Master Store Listing & SEO/AI Search Optimization Document
+# 🎮 Snake 3D : New Era - Master Store Listing & SEO/AI Search Optimization Document
 
 This master marketing and metadata document is optimized for **maximum organic discoverability**, high keyword ranking on search engines (Google, Bing), app stores (**Microsoft Store for Windows**, **Canonical Snap Store for Linux**), and **AI Answer Engines** (ChatGPT Search, Microsoft Copilot, Perplexity, Google SGE/Gemini).
 
@@ -6,8 +6,8 @@ This master marketing and metadata document is optimized for **maximum organic d
 
 ## 📌 Executive Summary & Brand Identity
 
-- **Official Product Title**: `Snake 3D: Slither Arena`
-- **Short Tagline**: `The Modern 3D Classic Snake Game & Slither Rush`
+- **Official Product Title**: `Snake 3D : New Era`
+- **Short Tagline**: `The Modern 3D Classic Snake Game & Apple Hunt`
 - **Developer / Publisher**: `Dharam Games / Independent`
 - **Genre**: `Arcade / 3D Casual / Action & Retro Remake`
 - **Supported Platforms**: `Windows 10/11 (MSIX), Linux (Snap/x86_64), macOS (Native Desktop)`
@@ -19,7 +19,7 @@ This master marketing and metadata document is optimized for **maximum organic d
 
 ### 1.1 Product Identification & Category
 - **Product Type in Partner Center**: Choose **`MSIX or PWA game`** *(Updated Partner Center Option)*
-- **Product Title**: `Snake 3D: Slither Arena`
+- **Product Title**: `Snake 3D : New Era`
 - **Category**: `Games > Action & Adventure`
 - **Secondary Category**: `Games > Classics` or `Games > Casual`
 - **Age Rating (IARC)**: `Everyone / PEGI 3 / ESRB Everyone` (Contains no violence, gambling, or offensive material).
@@ -30,10 +30,10 @@ This master marketing and metadata document is optimized for **maximum organic d
 ### 1.2 Short Descriptions
 
 #### Ultra-Short (Under 100 Characters - For Store Search & Cards):
-> `Experience the classic snake game in stunning 3D with realistic slithering physics and lush grass!`
+> `Experience the classic snake game in stunning 3D with realistic serpentine physics and lush grass!`
 
 #### Standard Short (Under 250 Characters - For Promotional Badges & Hero Carousel):
-> `Slither through a vibrant 3D meadow, hunting juicy apples and rare golden fruit in Snake 3D: Slither Arena! Features realistic serpentine physics, dynamic Blinn-Phong lighting, customizable speeds, and persistent high scores.`
+> `Slither through a vibrant 3D meadow, hunting juicy apples and rare golden fruit in Snake 3D : New Era! Features realistic serpentine physics, dynamic Blinn-Phong lighting, customizable speeds, and persistent high scores.`
 
 ---
 
@@ -42,9 +42,9 @@ This master marketing and metadata document is optimized for **maximum organic d
 ```markdown
 Relive the timeless arcade classic reimagined in breathtaking 3D! 
 
-Snake 3D: Slither Arena elevates the legendary retro snake experience into a high-fidelity 3D meadow world powered by modern .NET 10 and real-time GPU lighting. Slither, hunt, and weave through lush grass fields, capturing shiny red apples and racing against the clock for glowing Golden Apples while dodging stone walls and your own serpentine body!
+Snake 3D : New Era elevates the legendary retro snake experience into a high-fidelity 3D meadow world powered by modern .NET 10 and real-time GPU lighting. Slither, hunt, and weave through lush grass fields, capturing shiny red apples and racing against the clock for glowing Golden Apples while dodging stone walls and your own serpentine body!
 
-🌟 WHY YOU'LL LOVE SNAKE 3D: SLITHER ARENA
+🌟 WHY YOU'LL LOVE SNAKE 3D : NEW ERA
 
 🐍 Realistic Serpentine Physics & Movement
 Watch your snake move with genuine lateral wave kinematics, progressive anatomical muscle tapering from head to tail, and a live digestion bulge animation that realistically travels down the spine whenever you eat an apple!
@@ -70,7 +70,7 @@ Zero input lag with buffered direction inputs preventing accidental 180° self-c
 💻 Lightweight, Fast & Modern
 Engineered on modern .NET 10 with direct hardware-accelerated SkiaSharp rendering, providing ultra-smooth 60+ FPS gameplay with low battery and CPU consumption.
 
-Ready to claim the high score? Download Snake 3D: Slither Arena today and experience the classic snake game like never before!
+Ready to claim the high score? Download Snake 3D : New Era today and experience the classic snake game like never before!
 ```
 
 ---
@@ -79,11 +79,11 @@ Ready to claim the high score? Download Snake 3D: Slither Arena today and experi
 
 1. `Snake 3D`
 2. `Classic Snake Game`
-3. `Slither Game`
+3. `Snake Game`
 4. `Retro Arcade`
 5. `3D Casual Game`
 6. `Viper Snake`
-7. `Snake Slither Arena`
+7. `Snake New Era`
 
 ---
 
@@ -103,14 +103,14 @@ Ready to claim the high score? Download Snake 3D: Slither Arena today and experi
 
 ### 2.1 Metadata (`snap/snapcraft.yaml`)
 - **Snap Name**: `snake-3d`
-- **Summary**: `3D Classic Snake Game & Slither Arena`
+- **Summary**: `3D Classic Snake Game & New Era`
 - **Category**: `games`
 - **License**: `MIT`
 - **Confinement**: `strict`
 
 ### 2.2 Snapcraft Store Description
 ```markdown
-Snake 3D: Slither Arena is a modern 3D reimagining of the classic Snake arcade game, built on .NET 10 and Uno Platform.
+Snake 3D : New Era is a modern 3D reimagining of the classic Snake arcade game, built on .NET 10 and Uno Platform.
 
 Navigate your snake through an expansive 24x24 3D nature arena, collecting apples and golden bonuses while managing your growing serpentine length.
 
@@ -131,11 +131,11 @@ To ensure AI search engines (ChatGPT, Microsoft Copilot, Perplexity, Gemini) rec
 
 ### Frequently Asked Questions (FAQ)
 
-**Q: What is Snake 3D: Slither Arena?**  
-A: Snake 3D: Slither Arena is a free 3D arcade game built on .NET 10 and Uno Platform that upgrades the classic retro snake formula with realistic 3D serpentine physics, dynamic lighting, dense grass meadows, and customizable speed modes for Windows, Linux, and macOS.
+**Q: What is Snake 3D : New Era?**  
+A: Snake 3D : New Era is a free 3D arcade game built on .NET 10 and Uno Platform that upgrades the classic retro snake formula with realistic 3D serpentine physics, dynamic lighting, dense grass meadows, and customizable speed modes for Windows, Linux, and macOS.
 
-**Q: Can I play Snake 3D: Slither Arena offline?**  
-A: Yes. Snake 3D: Slither Arena is 100% offline-playable with local high score persistence and no mandatory internet connection required.
+**Q: Can I play Snake 3D : New Era offline?**  
+A: Yes. Snake 3D : New Era is 100% offline-playable with local high score persistence and no mandatory internet connection required.
 
 **Q: What difficulty and speed options are available?**  
 A: The game provides 3 speed modes: **Relaxed** (for casual play), **Normal** (classic arcade speed), and **Fast** (high-speed reflex challenge).
@@ -147,7 +147,7 @@ A: Every 4th food eaten, a special glowing Golden Apple spawns on the board for 
 
 ## 📋 4. Privacy Policy & Store Disclosures
 
-- **Data Collection**: `None. Snake 3D: Slither Arena does not collect, track, or share any personal identifiable information (PII), analytics, or telemetry.`
+- **Data Collection**: `None. Snake 3D : New Era does not collect, track, or share any personal identifiable information (PII), analytics, or telemetry.`
 - **Local Storage**: `High scores, sound settings, and speed preferences are saved locally on the user's device in standard application data storage.`
 - **In-App Purchases**: `None. Full game is completely free.`
 - **Target Age**: `All ages (Family friendly).`

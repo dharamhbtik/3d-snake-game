@@ -1,6 +1,6 @@
 # 🏪 Master Store Publishing Guide (Zero-Cost Microsoft Partner Center & Snap Store)
 
-This guide provides the **exact, zero-cost method** to publish **Snake 3D: Slither Arena** using your paid Microsoft Developer Account and Canonical Snapcraft account **without requiring paid Entra ID or Azure subscriptions**.
+This guide provides the **exact, zero-cost method** to publish **Snake 3D : New Era** using your paid Microsoft Developer Account and Canonical Snapcraft account **without requiring paid Entra ID or Azure subscriptions**.
 
 ---
 
@@ -18,7 +18,7 @@ This guide provides the **exact, zero-cost method** to publish **Snake 3D: Slith
 2. Go to **Apps and games** -> Click **New product**.
 3. When prompted to choose your game type:
    👉 **Select: `MSIX or PWA game`** *(Do NOT select GDK Game, as that is for Xbox C++ titles)*.
-4. Enter your product name: `Snake 3D: Slither Arena` (or your reserved variant).
+4. Enter your product name: `Snake 3D : New Era`.
 5. Click **Reserve product name**.
 
 ---

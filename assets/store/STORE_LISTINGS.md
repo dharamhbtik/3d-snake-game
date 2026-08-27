@@ -4,21 +4,18 @@ This document contains optimized metadata, descriptions, keywords, and copy tail
 
 ---
 
-## 🏆 Top Recommended Names
+## 🏆 Product Name
 
-| Name | Tagline / Subtitle | Keyword Score | Best For |
-|---|---|---|---|
-| **Snake 3D: Slither Arena** *(Top Pick)* | Classic 3D Snake Game & Slither Rush | 99/100 | Maximum conversions & search intent match |
-| **Viper 3D: Classic Snake Arena** | The Ultimate 3D Slither Arcade Challenge | 95/100 | Action/Arcade branding |
-| **Snake 3D Evolution** | Modern Slither & Classic Retro Arcade | 92/100 | Retro & nostalgia enthusiasts |
-| **Slither 3D: Classic Snake Rush** | Fast-Paced 3D Snake & Apple Hunt | 90/100 | High-velocity arcade fans |
+| Name | Tagline / Subtitle | Best For |
+|---|---|---|
+| **Snake 3D : New Era** | The Modern 3D Classic Snake Game & Apple Hunt | Microsoft Store & Desktop |
 
 ---
 
 ## 🪟 1. Microsoft Store (Windows) Listing Package
 
 ### Basic Information
-- **Product Title**: `Snake 3D: Slither Arena`
+- **Product Title**: `Snake 3D : New Era`
 - **Subtitle / Short Description** *(<100 characters)*:
   `Experience the ultimate 3D remake of the classic snake game with realistic slithering & grass arenas!`
 - **Category**: `Games > Action & Adventure` (Secondary: `Classics / Casual`)
@@ -29,7 +26,7 @@ This document contains optimized metadata, descriptions, keywords, and copy tail
 ```markdown
 Step into the meadow and experience the timeless arcade classic reborn in breathtaking 3D! 
 
-Snake 3D: Slither Arena elevates the beloved retro snake gameplay into a rich, immersive 3D environment powered by .NET 10 and real-time GPU lighting. Slither through a lush, wind-swept grass meadow, hunting juicy apples and rare glowing golden fruit while dodging stone walls and your own growing body.
+Snake 3D : New Era elevates the beloved retro snake gameplay into a rich, immersive 3D environment powered by .NET 10 and real-time GPU lighting. Slither through a lush, wind-swept grass meadow, hunting juicy apples and rare glowing golden fruit while dodging stone walls and your own growing body.
 
 🐍 KEY FEATURES:
 • Realistic 3D Serpentine Physics: Watch your snake undulate with lifelike lateral wave mechanics, anatomical muscle tapering, and animated digestion lumps as you swallow food!
@@ -43,7 +40,7 @@ Snake 3D: Slither Arena elevates the beloved retro snake gameplay into a rich, i
 • Offline & High-Score Tracking: Compete against your personal best with persistent high-score saves across sessions.
 • Responsive Directional Controls: Precision keyboard steering (Arrow Keys & WASD) with buffered anti-reversal turns.
 
-Ready to claim the high score? Download Snake 3D: Slither Arena today and experience classic snake like never before!
+Ready to claim the high score? Download Snake 3D : New Era today and experience classic snake like never before!
 ```
 
 ### Search Keywords / Tags *(Microsoft Store limits: max 7-8 keywords)*
@@ -61,12 +58,12 @@ Ready to claim the high score? Download Snake 3D: Slither Arena today and experi
 
 ### Package Configuration (`snap/snapcraft.yaml`)
 - **Name**: `snake-3d`
-- **Summary**: `3D Classic Snake Game & Slither Arena`
+- **Summary**: `3D Classic Snake Game & New Era`
 - **Category**: `Games / Arcade`
 
 ### Description
 ```markdown
-Snake 3D: Slither Arena is a modern 3D reimagining of the classic Snake arcade game, built on .NET 10 and Uno Platform.
+Snake 3D : New Era is a modern 3D reimagining of the classic Snake arcade game, built on .NET 10 and Uno Platform.
 
 Navigate your snake through an expansive 24x24 3D nature arena, collecting apples and golden bonuses while managing your growing serpentine length.
 

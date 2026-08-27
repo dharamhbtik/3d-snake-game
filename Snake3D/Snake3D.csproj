@@ -6,17 +6,17 @@
     <UnoSingleProject>true</UnoSingleProject>
 
     <!-- Display name -->
-    <ApplicationTitle>Snake 3D: Slither Arena</ApplicationTitle>
+    <ApplicationTitle>Snake 3D : New Era</ApplicationTitle>
     <!-- App Identifier -->
     <ApplicationId>3774DKTech.Snake3DNewEra</ApplicationId>
     <!-- Versions -->
-    <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
-    <ApplicationVersion>1</ApplicationVersion>
+    <ApplicationDisplayVersion>1.0.1</ApplicationDisplayVersion>
+    <ApplicationVersion>2</ApplicationVersion>
     <!-- Package Publisher -->
     <ApplicationPublisher>DKTech India</ApplicationPublisher>
     <PackagePublisherName>CN=29A7D010-A2C9-4F61-BD86-B10842B1EBC7</PackagePublisherName>
     <!-- Package Description -->
-    <Description>Snake 3D: Slither Arena - The modern 3D classic snake game.</Description>
+    <Description>Snake 3D : New Era - The modern 3D classic snake game.</Description>
     <!--
       If you encounter this error message:
 

@@ -1,7 +1,7 @@
 name: snake-3d
 base: core24
-version: '1.0.0'
-summary: 3D Classic Snake Game & Slither Arena
+version: '1.0.1'
+summary: 3D Classic Snake Game & New Era
 description: |
   A production-quality 3D desktop version of the classic Snake game
   built with Uno Platform, SkiaSharp, and .NET 10.
