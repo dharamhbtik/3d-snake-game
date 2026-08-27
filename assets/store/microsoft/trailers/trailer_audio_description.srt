@@ -1,0 +1,19 @@
+1
+00:00:00,500 --> 00:00:03,500
+A cinematic title card appears on a deep midnight blue background reading: Snake 3D : New Era, The Modern 3D Retro Remake.
+
+2
+00:00:03,600 --> 00:00:07,400
+The camera pans over an expansive 3D nature meadow where a green viper serpent slithers smoothly between swaying grass and blooming daisies.
+
+3
+00:00:07,500 --> 00:00:11,400
+The snake consumes a shiny red apple, causing a visible digestion lump to ripple down its vertebrae. A rare golden apple appears and bursts into sparkling golden particles.
+
+4
+00:00:11,500 --> 00:00:13,500
+HUD indicators highlight Relaxed, Normal, and Fast speed presets alongside high score tracking.
+
+5
+00:00:13,600 --> 00:00:15,000
+The final screen displays Snake 3D : New Era, Available on Windows 10, Windows 11, and Xbox.
