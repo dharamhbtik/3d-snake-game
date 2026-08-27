@@ -44,7 +44,9 @@ public class StoreAssetGenerator
         // 5. Featured Promotional Square Art (1080x1080 - No title text)
         GenerateBoxArt(Path.Combine(msDir, "featured_promo_square_1080x1080.png"), 1080, 1080, withTitle: false);
 
-        // 6. 9:16 Poster Art (720x1080 & 1440x2160 - Required for Xbox)
+        // 6. 9:16 Poster Art (1080x1920 & 2160x3840 true 9:16, plus 720x1080 & 1440x2160)
+        GeneratePosterArt(Path.Combine(msDir, "poster_art_9_16_1080x1920.png"), 1080, 1920);
+        GeneratePosterArt(Path.Combine(msDir, "poster_art_9_16_2160x3840.png"), 2160, 3840);
         GeneratePosterArt(Path.Combine(msDir, "poster_art_720x1080.png"), 720, 1080);
         GeneratePosterArt(Path.Combine(msDir, "poster_art_1440x2160.png"), 1440, 2160);
 
@@ -59,6 +61,17 @@ public class StoreAssetGenerator
 
         // 10. Store Display Icon Small (71x71)
         GenerateStoreIcon(Path.Combine(msDir, "store_display_icon_71x71.png"), 71, 71);
+
+        // Dedicated 'optional_images' folder for direct drag-and-drop into Partner Center
+        string optDir = Path.Combine(msDir, "optional_images");
+        Directory.CreateDirectory(optDir);
+        File.Copy(Path.Combine(msDir, "poster_art_9_16_1080x1920.png"), Path.Combine(optDir, "1_9x16_Poster_Art_1080x1920.png"), true);
+        File.Copy(Path.Combine(msDir, "poster_art_720x1080.png"), Path.Combine(optDir, "1_9x16_Poster_Art_720x1080.png"), true);
+        File.Copy(Path.Combine(msDir, "box_art_1080x1080.png"), Path.Combine(optDir, "2_1x1_Box_Art_1080x1080.png"), true);
+        File.Copy(Path.Combine(msDir, "box_art_2160x2160.png"), Path.Combine(optDir, "2_1x1_Box_Art_2160x2160.png"), true);
+        File.Copy(Path.Combine(msDir, "super_hero_art_1920x1080.png"), Path.Combine(optDir, "3_16x9_Super_Hero_Art_1920x1080.png"), true);
+        File.Copy(Path.Combine(msDir, "titled_hero_art_1920x1080.png"), Path.Combine(optDir, "4_16x9_Titled_Hero_Art_1920x1080.png"), true);
+        File.Copy(Path.Combine(msDir, "featured_promo_square_1080x1080.png"), Path.Combine(optDir, "5_Featured_Promo_Square_1080x1080.png"), true);
 
         // Also update standard store root files for backward compatibility
         File.Copy(Path.Combine(msDir, "screenshot_1_gameplay_1920x1080.png"), Path.Combine(baseDir, "real_screenshot_1_gameplay.png"), true);
