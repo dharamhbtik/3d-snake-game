@@ -30,6 +30,7 @@ public sealed partial class MainPage : Page
         this.Unloaded += OnPageUnloaded;
 
         this.AddHandler(UIElement.KeyDownEvent, new KeyEventHandler(OnGlobalKeyDown), handledEventsToo: true);
+        this.AddHandler(UIElement.KeyUpEvent, new KeyEventHandler(OnGlobalKeyUp), handledEventsToo: true);
     }
 
     private void OnPageLoaded(object sender, RoutedEventArgs e)
@@ -61,6 +62,11 @@ public sealed partial class MainPage : Page
     private void OnGlobalKeyDown(object sender, KeyRoutedEventArgs e)
     {
         _viewModel.HandleKeyDown(e.Key);
+    }
+
+    private void OnGlobalKeyUp(object sender, KeyRoutedEventArgs e)
+    {
+        _viewModel.HandleKeyUp(e.Key);
     }
 
     private void OnPageKeyDown(object sender, KeyRoutedEventArgs e)

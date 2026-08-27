@@ -35,12 +35,15 @@ public class GameEngineTests
             .GetProperty(nameof(GameEngine.CurrentFood))!
             .SetValue(engine, new Food(foodPos, FoodType.Apple, 10));
 
-        // Advance 1 step
+        // Advance 1 step to consume food
         engine.Update(engine.StepIntervalSeconds + 0.01);
 
-        Assert.Equal(initialLength + 1, engine.Snake.Length);
         Assert.Equal(initialScore + 10, engine.Score);
         Assert.NotNull(engine.CurrentFood); // New food spawned
+
+        // Advance next step to complete growth
+        engine.Update(engine.StepIntervalSeconds + 0.01);
+        Assert.Equal(initialLength + 1, engine.Snake.Length);
     }
 
     [Fact]

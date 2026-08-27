@@ -32,6 +32,9 @@ public sealed partial class MainViewModel : ObservableObject
     private int _level = 1;
 
     [ObservableProperty]
+    private string _preyLabel = "🐸 FROG (+25)";
+
+    [ObservableProperty]
     private bool _isNewHighScore;
 
     [ObservableProperty]
@@ -82,6 +85,14 @@ public sealed partial class MainViewModel : ObservableObject
         _engine.ScoreChanged += s => Score = s;
         _engine.HighScoreChanged += OnHighScoreUpdated;
         _engine.FoodConsumed += OnFoodConsumed;
+        _engine.SnakeStepCompleted += () =>
+        {
+            _audioService.PlaySlitherSound();
+            if (_engine.CurrentFood != null)
+            {
+                PreyLabel = _engine.SpecialFood != null ? _engine.SpecialFood.DisplayName : _engine.CurrentFood.DisplayName;
+            }
+        };
         _engine.GameOver += OnGameOver;
 
         _stopwatch.Start();
@@ -90,6 +101,10 @@ public sealed partial class MainViewModel : ObservableObject
     private void OnEngineStateChanged(GameState newState)
     {
         State = newState;
+        if (newState == GameState.Playing && _engine.CurrentFood != null)
+        {
+            PreyLabel = _engine.CurrentFood.DisplayName;
+        }
     }
 
     private void OnHighScoreUpdated(int newRecord)
@@ -101,9 +116,13 @@ public sealed partial class MainViewModel : ObservableObject
 
     private void OnFoodConsumed(Food food)
     {
-        _audioService.PlayEatSound(food.IsSpecial);
+        _audioService.PlayPreyCatchSound(food);
         _renderer.OnFoodEaten(food, _engine);
         Level = _engine.Level;
+        if (_engine.CurrentFood != null)
+        {
+            PreyLabel = _engine.SpecialFood != null ? _engine.SpecialFood.DisplayName : _engine.CurrentFood.DisplayName;
+        }
     }
 
     private void OnGameOver()
@@ -184,27 +203,34 @@ public sealed partial class MainViewModel : ObservableObject
         _audioService.PlayButtonClick();
     }
 
+    private readonly HashSet<Windows.System.VirtualKey> _heldMovementKeys = new();
+    private double _keyHoldDuration;
+
     public void HandleKeyDown(Windows.System.VirtualKey key)
     {
         switch (key)
         {
             case Windows.System.VirtualKey.W:
             case Windows.System.VirtualKey.Up:
+                _heldMovementKeys.Add(key);
                 _engine.EnqueueDirection(Direction.Up);
                 break;
 
             case Windows.System.VirtualKey.S:
             case Windows.System.VirtualKey.Down:
+                _heldMovementKeys.Add(key);
                 _engine.EnqueueDirection(Direction.Down);
                 break;
 
             case Windows.System.VirtualKey.A:
             case Windows.System.VirtualKey.Left:
+                _heldMovementKeys.Add(key);
                 _engine.EnqueueDirection(Direction.Left);
                 break;
 
             case Windows.System.VirtualKey.D:
             case Windows.System.VirtualKey.Right:
+                _heldMovementKeys.Add(key);
                 _engine.EnqueueDirection(Direction.Right);
                 break;
 
@@ -231,6 +257,16 @@ public sealed partial class MainViewModel : ObservableObject
         }
     }
 
+    public void HandleKeyUp(Windows.System.VirtualKey key)
+    {
+        _heldMovementKeys.Remove(key);
+        if (_heldMovementKeys.Count == 0)
+        {
+            _keyHoldDuration = 0.0;
+            _engine.SpeedBoostMultiplier = 1.0;
+        }
+    }
+
     public void UpdateFrame()
     {
         double currentSeconds = _stopwatch.Elapsed.TotalSeconds;
@@ -239,6 +275,19 @@ public sealed partial class MainViewModel : ObservableObject
 
         // Clamp large delta jumps (e.g. window dragging/resuming)
         dt = Math.Min(dt, 0.1);
+
+        // Dynamic speed boost on holding movement keys (longer press = faster speed)
+        if (_heldMovementKeys.Count > 0 && State == GameState.Playing)
+        {
+            _keyHoldDuration += dt;
+            // Scales smoothly from 1.0x up to 3.5x as key is held
+            _engine.SpeedBoostMultiplier = 1.0 + Math.Min(2.5, _keyHoldDuration * 2.2);
+        }
+        else
+        {
+            _keyHoldDuration = 0.0;
+            _engine.SpeedBoostMultiplier = 1.0;
+        }
 
         _engine.Update(dt);
     }

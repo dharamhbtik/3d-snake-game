@@ -1,12 +1,13 @@
 namespace Snake3D.Core;
 
 /// <summary>
-/// Manages the snake's body segments, heading, and input buffer.
+/// Manages the snake's body segments, heading, growth queue, and input buffer.
 /// </summary>
 public sealed class Snake
 {
     private readonly List<GridPoint> _segments = new();
     private readonly Queue<Direction> _inputQueue = new();
+    private int _growthPending;
 
     public IReadOnlyList<GridPoint> Segments => _segments;
     public GridPoint Head => _segments.Count > 0 ? _segments[0] : GridPoint.Zero;
@@ -24,6 +25,7 @@ public sealed class Snake
     {
         _segments.Clear();
         _inputQueue.Clear();
+        _growthPending = 0;
         CurrentDirection = initialDirection;
 
         _segments.Add(startHead);
@@ -44,7 +46,6 @@ public sealed class Snake
     /// </summary>
     public bool EnqueueDirection(Direction nextDirection)
     {
-        // Direction to compare against is the last enqueued direction or current direction
         var lastPlanned = _inputQueue.Count > 0 ? _inputQueue.Last() : CurrentDirection;
 
         if (nextDirection == lastPlanned || nextDirection.IsOppositeTo(lastPlanned))
@@ -52,7 +53,6 @@ public sealed class Snake
             return false;
         }
 
-        // Keep buffer limited to 2 pending inputs to prevent stale commands
         if (_inputQueue.Count < 2)
         {
             _inputQueue.Enqueue(nextDirection);
@@ -64,6 +64,7 @@ public sealed class Snake
 
     /// <summary>
     /// Advances the snake one grid unit in its heading direction.
+    /// If growth is pending, the tail is preserved so the snake grows seamlessly without duplicate nodes.
     /// </summary>
     public void Step(bool grow = false)
     {
@@ -76,18 +77,26 @@ public sealed class Snake
         _segments.Insert(0, newHead);
 
         PreviousTail = _segments[^1];
-        if (!grow)
+        if (grow || _growthPending > 0)
+        {
+            if (_growthPending > 0)
+                _growthPending--;
+        }
+        else
         {
             _segments.RemoveAt(_segments.Count - 1);
         }
     }
 
     /// <summary>
-    /// Grows the snake by keeping/restoring the previous tail segment.
+    /// Queues growth so the tail will be extended cleanly on the next step.
     /// </summary>
-    public void Grow()
+    public void Grow(int count = 1)
     {
-        _segments.Add(PreviousTail);
+        if (count > 0)
+        {
+            _growthPending += count;
+        }
     }
 
     public bool Contains(GridPoint point, bool excludeHead = false)
@@ -101,6 +110,9 @@ public sealed class Snake
         return false;
     }
 
+    /// <summary>
+    /// Checks for self-collision against active body segments.
+    /// </summary>
     public bool HasSelfCollision()
     {
         if (_segments.Count <= 4)

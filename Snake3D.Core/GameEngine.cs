@@ -23,7 +23,17 @@ public sealed class GameEngine
     public GameSpeed Speed { get; set; } = GameSpeed.Normal;
 
     /// <summary>
-    /// Current duration in seconds between snake grid steps based on selected difficulty/speed.
+    /// Dynamic speed acceleration multiplier when the user holds down movement keys.
+    /// </summary>
+    public double SpeedBoostMultiplier { get; set; } = 1.0;
+
+    /// <summary>
+    /// Detailed diagnostic reason for game over (boundary hit vs self collision).
+    /// </summary>
+    public string GameOverReason { get; private set; } = string.Empty;
+
+    /// <summary>
+    /// Current duration in seconds between snake grid steps based on selected difficulty/speed and key hold boost.
     /// </summary>
     public double StepIntervalSeconds
     {
@@ -31,17 +41,20 @@ public sealed class GameEngine
         {
             double baseInterval = Speed switch
             {
-                GameSpeed.Relaxed => 0.250, // Relaxed & comfortable (4 moves/sec)
-                GameSpeed.Fast => 0.110,    // Fast challenge
+                GameSpeed.Relaxed => 0.240, // Relaxed & comfortable
+                GameSpeed.Fast => 0.120,    // Fast challenge
                 _ => 0.170                 // Normal
             };
 
-            double interval = baseInterval - (FoodEatenCount * 0.0022) - ((Level - 1) * 0.005);
+            double interval = baseInterval - (FoodEatenCount * 0.0020) - ((Level - 1) * 0.004);
+            double boost = Math.Clamp(SpeedBoostMultiplier, 1.0, 1.75);
+            interval /= boost;
+
             double minInterval = Speed switch
             {
-                GameSpeed.Relaxed => 0.120,
-                GameSpeed.Fast => 0.045,
-                _ => 0.075
+                GameSpeed.Relaxed => 0.090,
+                GameSpeed.Fast => 0.055,
+                _ => 0.070
             };
 
             return Math.Max(minInterval, interval);
@@ -77,6 +90,7 @@ public sealed class GameEngine
         FoodEatenCount = 0;
         _timeAccumulator = 0;
         _specialFoodTimer = 0;
+        GameOverReason = string.Empty;
         SpecialFood = null;
 
         var startHead = new GridPoint(Board.Width / 2, Board.Height / 2);
@@ -154,10 +168,17 @@ public sealed class GameEngine
         _timeAccumulator += deltaSeconds;
         double interval = StepIntervalSeconds;
 
-        while (_timeAccumulator >= interval && State == GameState.Playing)
+        // Perform at most 1 grid step per frame to prevent unintended multi-steps
+        if (_timeAccumulator >= interval && State == GameState.Playing)
         {
             _timeAccumulator -= interval;
             PerformStep();
+        }
+
+        // Clamp accumulator to avoid lag spikes causing runaway steps
+        if (_timeAccumulator > interval)
+        {
+            _timeAccumulator = 0.0;
         }
 
         SubTickProgress = State == GameState.Playing
@@ -174,6 +195,7 @@ public sealed class GameEngine
         // Check boundary collision
         if (Board.IsOutOfBounds(Snake.Head))
         {
+            GameOverReason = $"Hit field boundary at ({Snake.Head.X}, {Snake.Head.Y})";
             TriggerGameOver();
             return;
         }
@@ -181,6 +203,7 @@ public sealed class GameEngine
         // Check self collision
         if (Snake.HasSelfCollision())
         {
+            GameOverReason = $"Self collision at ({Snake.Head.X}, {Snake.Head.Y})";
             TriggerGameOver();
             return;
         }
@@ -192,7 +215,7 @@ public sealed class GameEngine
             Score += food.Points;
             FoodEatenCount++;
             CurrentFood = null;
-            Snake.Grow();
+            Snake.Grow(1); // Safely queues growth on the next step
 
             CheckHighScore();
             ScoreChanged?.Invoke(Score);
@@ -206,7 +229,7 @@ public sealed class GameEngine
             var food = SpecialFood;
             Score += food.Points;
             SpecialFood = null;
-            Snake.Grow();
+            Snake.Grow(1);
 
             CheckHighScore();
             ScoreChanged?.Invoke(Score);
@@ -225,14 +248,35 @@ public sealed class GameEngine
         var freeCell = Board.FindRandomFreeCell(occupied, _rng);
         if (freeCell.HasValue)
         {
-            CurrentFood = new Food(freeCell.Value, FoodType.Apple, Points: 10);
+            // Pick diverse prey: Ladybug (5 pts), Grasshopper (15 pts), or Frog (25 pts)
+            int roll = _rng.Next(100);
+            FoodType type;
+            int points;
+
+            if (roll < 30)
+            {
+                type = FoodType.Ladybug;
+                points = 5;
+            }
+            else if (roll < 65)
+            {
+                type = FoodType.Grasshopper;
+                points = 15;
+            }
+            else
+            {
+                type = FoodType.Frog;
+                points = 25;
+            }
+
+            CurrentFood = new Food(freeCell.Value, type, points);
         }
     }
 
     private void MaybeSpawnSpecialFood()
     {
-        // Every 4th food eaten, spawn a Golden Apple with 10s lifetime
-        if (FoodEatenCount > 0 && FoodEatenCount % 4 == 0 && SpecialFood == null)
+        // Every 3rd prey eaten, spawn rare Golden Frog (50 pts) or Dragonfly (40 pts) with 12s lifetime
+        if (FoodEatenCount > 0 && FoodEatenCount % 3 == 0 && SpecialFood == null)
         {
             var occupied = new List<GridPoint>(Snake.Segments);
             if (CurrentFood != null)
@@ -241,8 +285,13 @@ public sealed class GameEngine
             var freeCell = Board.FindRandomFreeCell(occupied, _rng);
             if (freeCell.HasValue)
             {
-                _specialFoodTimer = 10.0;
-                SpecialFood = new Food(freeCell.Value, FoodType.GoldenApple, Points: 30, LifetimeSeconds: 10.0);
+                _specialFoodTimer = 12.0;
+                bool isGoldenFrog = _rng.Next(2) == 0;
+                SpecialFood = new Food(
+                    freeCell.Value,
+                    isGoldenFrog ? FoodType.GoldenFrog : FoodType.Dragonfly,
+                    Points: isGoldenFrog ? 50 : 40,
+                    LifetimeSeconds: 12.0);
             }
         }
     }

@@ -25,9 +25,11 @@ This guide provides the **exact, zero-cost method** to publish **Snake 3D: Slith
 
 ### Step 1.2: Sync Product Identity to Code (Already Configured)
 The project code and package manifest have already been updated with your Partner Center identity:
-- **Package/Identity/Name**: `3774DKTech.Snake3DSlitherArena`
+- **Package/Identity/Name**: `3774DKTech.Snake3DNewEra`
 - **Package/Identity/Publisher**: `CN=29A7D010-A2C9-4F61-BD86-B10842B1EBC7`
 - **Package/Properties/PublisherDisplayName**: `DKTech India`
+- **Package Family Name (PFN)**: `3774DKTech.Snake3DNewEra_h84rtn06fmbw4`
+- **Package SID**: `S-1-15-2-806296670-1876339080-2263318271-909268283-2149714336-3291965168-3710905543`
 
 *(Configured in `Snake3D/Package.appxmanifest` and `Snake3D/Snake3D.csproj`)*.
 
